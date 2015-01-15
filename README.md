@@ -1,8 +1,10 @@
 # sails-multitenancy-example
 
-> a [Sails](http://sailsjs.org) application
+> Sails with [Multitenancy](http://en.wikipedia.org/wiki/Multitenancy) by using *dynamically* loaded Tenant-specific collections and their corresponding connections.
 
-See Pull Request: https://github.com/balderdashy/sails/pull/2553
+See Pull Requests:
+- https://github.com/balderdashy/sails/pull/2553
+- https://github.com/balderdashy/waterline/pull/787
 
 ---
 
@@ -121,3 +123,24 @@ Setup migration, so the Sails warning does not appear, by adding the following l
 ```javascript
 migrate: 'alter'
 ```
+
+## Step 5
+
+Test that you can currently register and login.
+
+### Start Sails server
+
+```bash
+sails lift
+```
+
+### Register
+Go to http://localhost:1337/register
+
+Example User:
+- Username: `sails`
+- Email: `sails@sails.com`
+- Passport: `sails123`
+
+### Login
+Go to http://localhost:1337/login and login with the same information you used to register above.
