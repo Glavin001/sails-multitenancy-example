@@ -21,3 +21,11 @@ Install [sails-generate-auth](https://github.com/kasperisager/sails-generate-aut
 ```bash
 npm install sails-generate-auth --save
 ```
+
+## Step 3
+
+Generate Authentication code:
+
+```bash
+sails generate auth
+```
