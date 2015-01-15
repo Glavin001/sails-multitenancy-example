@@ -1,2 +1,3 @@
-# sails-multitenancy-example
-Example application using Sails (&amp; Waterline) Multitenancy support.
+# sails-multitenancy-example2
+
+a [Sails](http://sailsjs.org) application
