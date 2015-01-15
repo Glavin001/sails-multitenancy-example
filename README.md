@@ -13,3 +13,11 @@ Generate a project
 ```bash
 sails generate new sails-multitenancy-example
 ```
+
+## Step 2
+
+Install [sails-generate-auth](https://github.com/kasperisager/sails-generate-auth):
+
+```bash
+npm install sails-generate-auth --save
+```
