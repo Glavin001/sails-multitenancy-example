@@ -29,7 +29,25 @@ module.exports.connections = {
   *                                                                          *
   ***************************************************************************/
   localDiskDb: {
-    adapter: 'sails-disk'
+    adapter: 'sails-disk',
+    filePath: '.tmp/',
+
+    // === Multitenancy support ===
+    isMultiTenant: true, // Enable Multi-Tenancy feature
+    availableTenants: ['localhost:1337', 'tenant2'], // Tenants that pass validation
+    configForTenant: function(tenantId, config, cb) { // For Waterline
+        // console.log('configForTenant', tenantId);
+        // Validate Tenant
+        if (config.availableTenants.indexOf(tenantId) !== -1) {
+            // Tenant is allowed
+            config.fileName = tenantId;
+            return cb(null, config);
+        } else {
+            // Tenant is not allowed
+            return cb(new Error("Invalid tenant " + tenantId + "!"));
+        }
+    }
+
   },
 
   /***************************************************************************

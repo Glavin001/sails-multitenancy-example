@@ -126,6 +126,50 @@ migrate: 'alter'
 
 ## Step 5
 
+Configure your connection to enable multitenancy.
+
+In config file `config/connections.js` edit the connection,
+`localDiskDb`, which we are using for this app and add the following:
+
+```javascript
+// === Multitenancy support ===
+isMultiTenant: true, // Enable Multi-Tenancy feature
+availableTenants: ['localhost:1337', 'tenant2'], // Tenants that pass validation
+configForTenant: function(tenantId, config, cb) { // For Waterline
+    // console.log('configForTenant', tenantId);
+    // Validate Tenant
+    if (config.availableTenants.indexOf(tenantId) !== -1) {
+        // Tenant is allowed
+        config.fileName = tenantId;
+        return cb(null, config);
+    } else {
+        // Tenant is not allowed
+        return cb(new Error("Invalid tenant " + tenantId + "!"));
+    }
+}
+```
+
+The `config.availableTenants` is only an example of how you may want to validate
+your Tenant requests. Feel free to change this to however you like,
+or not even validate at all!
+
+## Step 6
+
+Since each tenant has their own `User` and `Passport` collections
+you must modify the original source code generated
+by [sails-generate-auth](https://github.com/kasperisager/sails-generate-auth).
+
+Apply the `.tenant` API to each of the collections calls, `User` and `Passport`, in `api/services/protocols/local.js`.
+
+For instance, `User.find().exec()` becomes
+`User.tenant(req.session.tenant).find().exec()`.
+Note the addition of `.tenant(req.session.tenant)` to the collection.
+
+This will mean that those calls to `User` or `Passport` will now be
+scoped around the tenant as specified by `req.session.tenant`.
+
+## Step 7
+
 Test that you can currently register and login.
 
 ### Start Sails server

@@ -42,7 +42,9 @@ exports.register = function (req, res, next) {
     return next(new Error('No password was entered.'));
   }
 
-  User.create({
+  User
+  .tenant(req.session.tenant)
+  .create({
     username : username
   , email    : email
   }, function (err, user) {
@@ -58,7 +60,9 @@ exports.register = function (req, res, next) {
       return next(err);
     }
 
-    Passport.create({
+    Passport
+    .tenant(req.session.tenant)
+    .create({
       protocol : 'local'
     , password : password
     , user     : user.id
@@ -93,7 +97,9 @@ exports.connect = function (req, res, next) {
   var user     = req.user
     , password = req.param('password');
 
-  Passport.findOne({
+  Passport
+  .tenant(req.session.tenant)
+  .findOne({
     protocol : 'local'
   , user     : user.id
   }, function (err, passport) {
@@ -102,7 +108,9 @@ exports.connect = function (req, res, next) {
     }
 
     if (!passport) {
-      Passport.create({
+      Passport
+      .tenant(req.session.tenant)
+      .create({
         protocol : 'local'
       , password : password
       , user     : user.id
@@ -139,7 +147,9 @@ exports.login = function (req, identifier, password, next) {
     query.username = identifier;
   }
 
-  User.findOne(query, function (err, user) {
+  User
+  .tenant(req.session.tenant)
+  .findOne(query, function (err, user) {
     if (err) {
       return next(err);
     }
@@ -154,7 +164,9 @@ exports.login = function (req, identifier, password, next) {
       return next(null, false);
     }
 
-    Passport.findOne({
+    Passport
+    .tenant(req.session.tenant)
+    .findOne({
       protocol : 'local'
     , user     : user.id
     }, function (err, passport) {
