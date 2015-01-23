@@ -1,4 +1,5 @@
 # sails-multitenancy-example
+[![Build Status](https://travis-ci.org/Glavin001/sails-multitenancy-example.svg?branch=master)](https://travis-ci.org/Glavin001/sails-multitenancy-example)
 
 > Sails with [Multitenancy](http://en.wikipedia.org/wiki/Multitenancy) by using *dynamically* loaded Tenant-specific collections and their corresponding connections.
 
