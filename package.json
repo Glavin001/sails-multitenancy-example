@@ -27,6 +27,7 @@
     "sails": "git+https://github.com/Glavin001/sails.git",
     "sails-disk": "~0.10.0",
     "sails-generate-auth": "^0.2.0",
+    "sails-mongo": "^0.10.5",
     "validator": "^3.27.0"
   },
   "scripts": {
